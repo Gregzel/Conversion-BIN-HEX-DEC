@@ -1,0 +1,103 @@
+﻿Version=6.5
+NumberOfModules=1
+Module1=convert
+Build1=Default,b4a.example
+Build2=New_1,Conversion.b4a,Full
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: http://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="14"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~SetApplicationAttribute(android:theme, "@android:style/Theme.Holo")~\n~'End of default text.~\n~
+IconFile=
+NumberOfFiles=1
+File1=IHM_conversion.bal
+NumberOfLibraries=1
+Library1=core
+@EndOfDesignText@
+#Region  Project Attributes
+	#ApplicationLabel: Conversion BinaireDecimal
+	#VersionCode: 1
+	#VersionName: 
+	'SupportedOrientations possible values: unspecified, landscape or portrait.
+	#SupportedOrientations: portrait
+	#CanInstallToExternalStorage: False
+#End Region
+
+#Region  Activity Attributes 
+	#FullScreen: False
+	#IncludeTitle: False
+#End Region
+
+Sub Process_Globals
+	'These global variables will be declared once when the application starts.
+	'These variables can be accessed from all modules.
+
+End Sub
+
+Sub Globals
+	'These global variables will be redeclared each time the activity is created.
+	'These variables can only be accessed from this module.
+
+	'Conversion Decimal/binaire
+	Private Label4 As Label
+	Private BinaireDecimal As Panel
+	Private Label1 As Label
+	Private NombreDec As EditText
+	Private ConversionDec As Button
+	Private Label3 As Label
+	Private ResultatDec As Label	
+	Private Label7 As Label
+	Private ResultatDecHex As Label
+	
+	'Conversion binaire/decimal
+	Private Label5 As Label
+	Private DecimalBinaire As Panel
+	Private Label2 As Label
+	Private NombreBin As EditText
+	Private ConversionBin As Button
+	Private Label6 As Label
+	Private ResultatBin As Label
+	Private Label8 As Label
+	Private ResultatBinHex As Label
+
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+	'Do not forget to load the layout file created with the visual designer. For example:
+	'Activity.LoadLayout("Layout1")
+	Activity.LoadLayout("IHM_conversion")
+End Sub
+
+Sub ConversionDec_Click
+	'Déclaration des variables Binaires et Hexa decimal pour affichage
+	Dim Bin As Int
+	Dim Hex As String
+	If NombreDec.Text="" Then NombreDec.Text=0
+	Bin=convert.decTobin(NombreDec.Text) 'Conversion
+	ResultatDec.Text=Bin 'Affichage de la conversion
+	Hex=DectoHex(NombreDec.Text)
+	ResultatDecHex.Text=Hex
+End Sub
+
+Sub ConversionBin_Click
+	'Déclaration des variables Binaires et Hexa decimal pour affichage
+	Dim Dec As Int
+	Dim Hex As String
+	If NombreBin.Text="" Then NombreBin.Text=0
+	Dec=convert.binTodec(NombreBin.Text)
+	ResultatBin.Text=Dec
+	Hex=Bin2Hex(NombreBin.Text)
+	ResultatBinHex.Text=Hex
+End Sub
+
+'Convert decimal integer to any base up to 16, returns string.
+Sub DectoHex(n As Int) As String
+	Dim chars As  String ="0123456789ABCDEF"
+	Dim hex As String = ""
+	Do While n > 0
+		hex = chars.charAt(n Mod 16) & hex
+		n = n / 16
+	Loop
+	Return hex
+End Sub
+
+'Convert Binary integer to Hexadecimal, returns string.
+Sub Bin2Hex(bnumber As String) As String
+	Return Bit.ToHexString(Bit.ParseInt(bnumber,2))
+End Sub

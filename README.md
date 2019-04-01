@@ -1,2 +1,5 @@
 # Conversion-BIN-HEX-DEC-b4a
-Petite application de conversion Binaire Hexadécilmal Decimale développée sous B4A 
+Mise en oeuvre d'une application de conversion Binaire Hexadécilmal Decimale pour Android
+![](/conversion.jpg) 
+# Logiciel
+![](/B4A.png) 
